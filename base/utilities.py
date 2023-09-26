@@ -71,7 +71,7 @@ def get_team_data_scrape(team_name,teams_df):
     geckodriver_path = os.path.join(settings.STATICFILES_DIRS[0], 'geckodriver')  # Replace with the actual path to geckodriver
     
     # Create a Firefox service with the executable path
-    firefox_service = FirefoxService()
+    firefox_service = FirefoxService(geckodriver_path)
     
     # Create Firefox options
     firefox_options = FirefoxOptions()
@@ -79,7 +79,7 @@ def get_team_data_scrape(team_name,teams_df):
 
     firefox_options.headless = True
     # Initialize a new Firefox WebDriver
-    driver = webdriver.Firefox(service=firefox_service, options=firefox_options,executable_path=geckodriver_path)
+    driver = webdriver.Firefox(service=firefox_service, options=firefox_options)
     try:
 
 
