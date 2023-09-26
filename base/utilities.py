@@ -78,11 +78,11 @@ def get_team_data_scrape(team_name,teams_df):
     firefox_options.set_preference("javascript.enabled", False)  # Disable JavaScript
 
     firefox_options.headless = True
-       
+    # Initialize a new Firefox WebDriver
+    driver = webdriver.Firefox(service=firefox_service, options=firefox_options)
     try:
 
-        # Initialize a new Firefox WebDriver
-        driver = webdriver.Firefox(service=firefox_service, options=firefox_options)
+
         
         # Navigate directly to the extracted URL
         driver.get(worldfootball_url)
@@ -230,7 +230,7 @@ def get_common_players_db(clubs_list):
 def parse_date(date_str):
     # Try different date formats
     formats_to_try = ['%d/%m/%Y','%Y-%m-%d', '%Y/%m/%d','%b-%y', '%m/%Y','%Y']
-
+    print(date_str)
     for date_format in formats_to_try:
         try:
             return datetime.strptime(date_str, date_format).date()

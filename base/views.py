@@ -67,7 +67,7 @@ def team_result(request):
         # try:
             common_players , clubs = get_common_players_scrape(clubs_list,teams_csv_path)
             # Convert 'born' column to datetime
-    
+            common_players['Born'] = common_players['Born'].fillna('')
             common_players['Born'] = common_players['Born'].apply(parse_date)
 
             # Sort the DataFrame by the 'born' column in descending order
