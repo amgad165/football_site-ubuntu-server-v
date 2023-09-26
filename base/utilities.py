@@ -11,6 +11,8 @@ from datetime import datetime
 from .models import team_data_modes , PlayerInfo
 import os
 from django.conf import settings
+from selenium.webdriver.chrome.options import Options
+
 ################################################# teams functions########################################
 
 def get_team_link(team_name):
@@ -68,22 +70,33 @@ def get_team_data_scrape(team_name,teams_df):
 
     
     # Specify the path to the GeckoDriver executable
-    geckodriver_path = os.path.join(settings.STATICFILES_DIRS[0], 'geckodriver')  # Replace with the actual path to geckodriver
-    
-    # Create a Firefox service with the executable path
-    firefox_service = FirefoxService(geckodriver_path)
-    
-    # Create Firefox options
-    firefox_options = FirefoxOptions()
-    firefox_options.set_preference("javascript.enabled", False)  # Disable JavaScript
+    # geckodriver_path = os.path.join(settings.STATICFILES_DIRS[0], 'geckodriver')  # Replace with the actual path to geckodriver
 
-    firefox_options.headless = True
-    # Initialize a new Firefox WebDriver
-    driver = webdriver.Firefox(service=firefox_service, options=firefox_options)
+    # Create a Firefox service with the executable path
+    # firefox_service = FirefoxService(geckodriver_path)
+    
+    # # Create Firefox options
+    # firefox_options = FirefoxOptions()
+    # firefox_options.set_preference("javascript.enabled", False)  # Disable JavaScript
+
+    # firefox_options.headless = True
+
+
+    chrome_options = Options()
+    chrome_options.add_argument('--headless')  # Run Chrome in headless mode
+    chrome_options.add_argument("window-size=1400,1500")
+    chrome_options.add_argument("--disable-gpu")
+    chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("start-maximized")
+    chrome_options.add_argument("enable-automation")
+    chrome_options.add_argument("--disable-infobars")
+    chrome_options.add_argument("--disable-dev-shm-usage")
+    chrome_options.add_experimental_option( "prefs",{'profile.managed_default_content_settings.javascript': 2})
+
+    driver = webdriver.Chrome(options=chrome_options)
+
     try:
 
-
-        
         # Navigate directly to the extracted URL
         driver.get(worldfootball_url)
 
