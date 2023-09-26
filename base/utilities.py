@@ -266,7 +266,11 @@ def scrape_player_info(search_query):
     # Create Firefox options
     firefox_options = FirefoxOptions()
     firefox_options.headless = True
-       
+    FirefoxOptions.add_argument("--no-sandbox")
+    FirefoxOptions.add_argument("--headless")
+    FirefoxOptions.add_argument("--disable-gpu")
+    FirefoxOptions.add_argument("--window-size=1920,1080")
+    
     # Initialize the Firefox WebDriver with the service
     driver = webdriver.Firefox(service=firefox_service, options=firefox_options)
 
