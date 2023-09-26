@@ -9,16 +9,16 @@ import pandas as pd
 from bs4 import BeautifulSoup
 from datetime import datetime
 from .models import team_data_modes , PlayerInfo
-
-
+import os
+from django.conf import settings
 ################################################# teams functions########################################
 
 def get_team_link(team_name):
     # Specify the path to the GeckoDriver executable
-    # geckodriver_path = 'static/geckodriver.exe'  # Replace with the actual path to geckodriver
-    
+    geckodriver_path = os.path.join(settings.STATICFILES_DIRS[0], 'geckodriver')  # Replace with the actual path to geckodriver
+
     # Create a Firefox service with the executable path
-    firefox_service = FirefoxService()
+    firefox_service = FirefoxService(geckodriver_path)
     firefox_options = FirefoxOptions()
     firefox_options.headless = True
        
@@ -68,10 +68,10 @@ def get_team_data_scrape(team_name,teams_df):
 
     
     # Specify the path to the GeckoDriver executable
-    # geckodriver_path = 'static/geckodriver.exe'  # Replace with the actual path to geckodriver
+    geckodriver_path = os.path.join(settings.STATICFILES_DIRS[0], 'geckodriver')  # Replace with the actual path to geckodriver
     
     # Create a Firefox service with the executable path
-    firefox_service = FirefoxService()
+    firefox_service = FirefoxService(geckodriver_path)
     
     # Create Firefox options
     firefox_options = FirefoxOptions()
@@ -244,10 +244,10 @@ def parse_date(date_str):
 
 def scrape_player_info(search_query):
     # Initialize the Firefox WebDriver
-    # geckodriver_path = 'static/geckodriver.exe'  # Replace with the actual path to geckodriver
+    geckodriver_path = os.path.join(settings.STATICFILES_DIRS[0], 'geckodriver')  # Replace with the actual path to geckodriver
     
     # Create a Firefox service with the executable path
-    firefox_service = FirefoxService()
+    firefox_service = FirefoxService(geckodriver_path)
     
     # Create Firefox options
     firefox_options = FirefoxOptions()
