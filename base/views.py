@@ -86,7 +86,7 @@ def team_result(request):
 
 
 def players(request):
-    players_csv_path = os.path.join(settings.STATICFILES_DIRS[0], 'assets/data/teams_with_links.csv')
+    players_csv_path = os.path.join(settings.STATICFILES_DIRS[0], 'assets/data/players_names.csv')
 
     players = pd.read_csv(players_csv_path)
     players_names = list(players.name.values)

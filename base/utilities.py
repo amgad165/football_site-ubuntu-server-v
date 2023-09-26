@@ -71,7 +71,7 @@ def get_team_data_scrape(team_name,teams_df):
     geckodriver_path = os.path.join(settings.STATICFILES_DIRS[0], 'geckodriver')  # Replace with the actual path to geckodriver
     
     # Create a Firefox service with the executable path
-    firefox_service = FirefoxService(geckodriver_path)
+    firefox_service = FirefoxService()
     
     # Create Firefox options
     firefox_options = FirefoxOptions()
@@ -79,7 +79,7 @@ def get_team_data_scrape(team_name,teams_df):
 
     firefox_options.headless = True
     # Initialize a new Firefox WebDriver
-    driver = webdriver.Firefox(service=firefox_service, options=firefox_options)
+    driver = webdriver.Firefox(service=firefox_service, options=firefox_options,executable_path=geckodriver_path)
     try:
 
 
@@ -230,7 +230,7 @@ def get_common_players_db(clubs_list):
 def parse_date(date_str):
     # Try different date formats
     formats_to_try = ['%d/%m/%Y','%Y-%m-%d', '%Y/%m/%d','%b-%y', '%m/%Y','%Y']
-    print(date_str)
+    
     for date_format in formats_to_try:
         try:
             return datetime.strptime(date_str, date_format).date()
