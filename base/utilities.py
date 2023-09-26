@@ -61,10 +61,11 @@ def get_team_data_scrape(team_name,teams_df):
     
     if teams_df[teams_df['name'].str.contains(team_name)].any(axis=None):
 
-        
+        print("helloooo")
         worldfootball_url =  teams_df.loc[teams_df['name'].str.contains(team_name), 'links'].iloc[0]
 
     else:
+        print('nenenee')
         worldfootball_url = get_team_link(team_name)
 
 
@@ -115,7 +116,7 @@ def get_team_data_scrape(team_name,teams_df):
         # get the club name from the website
         club_name = driver.find_element(By.CSS_SELECTOR, ".emblemwrapper .head")
         club_name = club_name.text
-        
+        print(club_name,'hhhhhhhhhhhh')
         # Wait for the players page to load
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//tr")))
 
