@@ -266,7 +266,7 @@ def scrape_player_info(search_query):
     # Create Firefox options
     firefox_options = FirefoxOptions()
     firefox_options.headless = True
-    firefox_options.binary_location = r'/usr/bin/firefox/firefox'
+
     firefox_options.add_argument(argument="--no-sandbox")
     firefox_options.add_argument(argument="--headless")
     firefox_options.add_argument(argument="--disable-gpu")
