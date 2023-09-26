@@ -1,0 +1,188 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Players Result</title>
+    <!-- Include Bootstrap 5 CSS and JS -->
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="{% static 'assets/css/sidebar.css' %}">
+
+  <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <style>
+
+
+        #loading_gif{
+ 
+ background:  url(/static/assets/images/loader6.gif) no-repeat center center;
+   height: 100vh;
+   background-size: 12%;
+   width: 50%;
+   position: absolute;
+   z-index: 100;
+   margin: auto;
+   margin-top: 10px;
+   left: 0;
+   right: 0;
+   bottom:  10%;
+   text-align: center;
+ }
+ @media screen and (max-width: 767px) {
+    #loading_gif{
+ 
+ background:  url(static/assets/images/loader6.gif) no-repeat center center;
+   height: 100vh;
+   background-size: 75%;
+   width: 90%;
+   position: absolute;
+   z-index: 100;
+   margin: auto;
+   margin-top: 10px;
+   left: 0;
+   right: 0;
+   text-align: center;
+ }
+}
+
+  </style>  
+</head>
+<body>
+
+
+
+
+<!--msb: main sidebar-->
+<div class="msb" id="msb">
+  <nav class="navbar navbar-default" role="navigation">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <div class="brand-wrapper">
+        <!-- Brand -->
+        <div class="brand-name-wrapper">
+          <a class="navbar-brand" href="{% url 'main' %}">
+            Home
+          </a>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Main Menu -->
+    <div class="side-menu-container">
+      <ul class="nav navbar-nav">
+
+        <li ><a href="{% url 'update_mode' %}"><i class="fa fa-dashboard"></i> Modes</a></li>
+        <li class="active"><a href="{% url 'csv_upload' %}"><i class="fa fa-puzzle-piece"></i> Update Database</a></li>
+  
+
+
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </nav>  
+</div>
+<div id="gif"></div>
+<!--main content wrapper-->
+<div class="mcw">
+  <!--navigation here-->
+  <!--main content view-->
+  <div class="cv">
+    
+    <div>
+     <div class="inbox">
+       <div class="inbox-sb">
+         
+       </div>
+       <div class="inbox-bx container-fluid">
+         <div class="row">
+           <div class="col-md-3">
+     
+           </div>
+           <div class="col-md-6">
+
+            <div class="main">
+              <div class="container mt-5">
+                  <h1 class="mb-4">Upload CSV File</h1>
+                  <p>Upload your updated Data in csv format </p>
+                  <p>make sure that the uploaded data has Five columns : Player, Country , Position , Born, Club.
+                    <p>updating data can take 1-2 minutes</p>
+                  </p>
+                  
+                  <div id="error-alert" class="alert alert-danger" style="display: none;"></div>
+                  <div id="success-alert" class="alert alert-success" style="display: none;">CSV data successfully inserted.</div>
+                  <form id="csv-upload-form" method="post" enctype="multipart/form-data">
+                      {% csrf_token %}
+                      <div class="form-group">
+                          <label for="csvFile" class="form-label">Choose a CSV File:</label>
+                          <input required type="file" class="form-control" id="csvFile" name="csv_file">
+                      </div>
+                      <button type="submit" class="btn btn-primary">Upload</button>
+                  </form>
+              </div>
+          </div>
+
+           </div>
+         </div>
+       </div>
+     </div>
+    </div>
+  </div>
+</div>
+
+
+
+<script>
+  $(document).ready(function () {
+      $('#csv-upload-form').on('submit', function (e) {
+          e.preventDefault();
+          var formData = new FormData(this);
+          
+          $.ajax({
+              type: 'POST',
+
+              data: formData,
+              processData: false,
+              contentType: false,
+              success: function (response) {
+                  if (response.message) {
+                      $('#success-alert').show();
+                      $("#loading_gif").remove()
+                  } else if (response.error_message) {
+                      $('#error-alert').text(response.error_message).show();
+                      $("#loading_gif").remove()
+                  }
+              },
+              error: function () {
+                  $('#error-alert').text('An error occurred. Please try again later.').show();
+                  $("#loading_gif").remove()
+              }
+          });
+      });
+  });
+</script>
+
+<script>
+  $(document).ready(function() {
+    $('#csv-upload-form').on("submit", function (e) {
+      console.log('hello')
+      // Display the loading GIF
+      $("#gif").append('<div id="loading_gif"></div>');
+
+      // Prevent the default form submission behavior
+      e.preventDefault();
+
+
+    });
+  });
+</script>
+
+
+</body>
+</html>

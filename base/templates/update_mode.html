@@ -1,0 +1,108 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Players Result</title>
+    <!-- Include Bootstrap 5 CSS and JS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="{% static 'assets/css/sidebar.css' %}">
+
+  <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <style>
+
+        /* Add CSS styles for the alert message */
+        .alert-success {
+            display: none;
+            margin-top: 20px;
+        }
+
+  </style>  
+</head>
+<body>
+
+
+
+
+<!--msb: main sidebar-->
+<div class="msb" id="msb">
+		<nav class="navbar navbar-default" role="navigation">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<div class="brand-wrapper">
+					<!-- Brand -->
+					<div class="brand-name-wrapper">
+						<a class="navbar-brand" href="{% url 'main' %}">
+							Home
+						</a>
+					</div>
+
+				</div>
+
+			</div>
+
+			<!-- Main Menu -->
+			<div class="side-menu-container">
+				<ul class="nav navbar-nav">
+
+					<li class="active"><a href="{% url 'update_mode' %}"><i class="fa fa-dashboard"></i> Modes</a></li>
+					<li ><a href="{% url 'csv_upload' %}"><i class="fa fa-puzzle-piece"></i> Update Database</a></li>
+
+	
+				</ul>
+			</div><!-- /.navbar-collapse -->
+		</nav>  
+</div>
+
+<!--main content wrapper-->
+<div class="mcw">
+    <!--navigation here-->
+    <!--main content view-->
+    <div class="cv">
+      <div>
+       <div class="inbox">
+         <div class="inbox-sb">
+           
+         </div>
+         <div class="inbox-bx container-fluid">
+           <div class="row">
+             <div class="col-md-3">
+       
+             </div>
+             <div class="col-md-6">
+  <h1>Choose your Mode</h1>
+  <p>1- db mode : is to get the teams data from the database</p>
+  <p>2- scrape mode : is to scrape the teams data from the Web</p>
+
+
+
+  <form method="post">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="data-source">Select Data Source:</label>
+        <select class="form-control" id="data-source" name="data-source">
+            <option value="db" {% if mode_instance.mode == 'db' %}selected{% endif %}>DB</option>
+            <option value="scrape" {% if mode_instance.mode == 'scrape' %}selected{% endif %}>Scrape</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Update Mode</button>
+</form>
+             </div>
+           </div>
+         </div>
+       </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+</body>
+</html>

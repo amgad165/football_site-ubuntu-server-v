@@ -1,0 +1,110 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Players Result</title>
+    <!-- Include Bootstrap 5 CSS and JS -->
+    <link rel="stylesheet" href="{% static 'assets/bootstrap5/bootstrap.min.css' %}">
+    <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+
+    <link href="{% static 'assets/css/card_swiper.css' %}" rel="stylesheet">
+
+    <script src="{% static 'assets/bootstrap5/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.5/js/swiper.min.js"></script>
+
+  <style>
+.header-area{
+position: relative;
+}
+    .main{
+        margin-top: 100px;
+    }
+
+
+    
+  </style>  
+</head>
+<body>
+
+
+  <!-- ***** Header Area Start ***** -->
+  <header class="header-area header-sticky">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <nav class="main-nav">
+                    <!-- ***** Logo Start ***** -->
+                    <a href="{% url 'main' %}" class="logo">
+                        <img src="{% static 'assets/images/logo3.png' %}" alt="" style="width: 110px;">
+                    </a>
+                    <!-- ***** Logo End ***** -->
+                    <!-- ***** Menu Start ***** -->
+                    <ul class="nav">
+    
+                        <li>    
+            <a href="{% url 'players' %}"> <button   class="btn btn-primary" role="button">Back</button>  </a>
+        
+      </li>
+                  </ul>   
+                    <a class='menu-trigger'>
+                        <span>Menu</span>
+                    </a>
+                    <!-- ***** Menu End ***** -->
+                </nav>
+            </div>
+        </div>
+    </div>
+  </header>
+  <!-- ***** Header Area End ***** -->
+
+<div class="main">
+    <div class="container mt-5">
+ 
+        
+
+        <div class="blog-slider">
+            <div class="blog-slider__wrp swiper-wrapper">
+              <div class="blog-slider__item swiper-slide">
+                <!-- <div class="blog-slider__img">
+                  
+                  <img src="{% static 'assets/images/card-image.jpg' %}" alt="">
+                </div> -->
+                <div class="blog-slider__content">
+<h1>Results</h1>
+                  <div class="blog-slider__text"><h3>{{result|linebreaks}}</h3></div>
+                  
+                </div>
+              </div>
+
+            
+              
+            </div>
+         
+          </div>
+
+
+    </div>
+</div>
+
+
+
+
+<script>
+    var swiper = new Swiper('.blog-slider', {
+      spaceBetween: 30,
+      effect: 'fade',
+      loop: false,
+      mousewheel: {
+        invert: false,
+      },
+      // autoHeight: true,
+ 
+    });
+</script>
+</body>
+</html>

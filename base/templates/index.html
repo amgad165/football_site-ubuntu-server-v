@@ -1,0 +1,121 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <title>Football statistics site</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'assets/bootstrap5/bootstrap.min.css' %}" rel="stylesheet">
+
+
+
+    <!-- Additional CSS Files -->
+    <link href="{% static 'assets/css/fontawesome.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+
+    <link rel="stylesheet"href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
+<!--
+
+TemplateMo 589 lugx gaming
+
+https://templatemo.com/tm-589-lugx-gaming
+
+-->
+  </head>
+
+<body>
+
+  <!-- ***** Preloader Start ***** -->
+
+  <!-- ***** Preloader End ***** -->
+
+  <!-- ***** Header Area Start ***** -->
+  <header class="header-area header-sticky">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <nav class="main-nav">
+                    <!-- ***** Logo Start ***** -->
+                    <!-- <a href="{% url 'main' %}" class="logo">
+                        <img src="{% static 'assets/images/logo3.png' %}" alt="" style="width: 110px;">
+                    </a> -->
+                    <!-- ***** Logo End ***** -->
+                    <!-- ***** Menu Start ***** -->
+                    <!-- <ul class="nav">
+                      <li><a href="{% url 'main' %}" class="active">Home</a></li>
+                      <li><a href="{% url 'teams' %}">Teams</a></li>
+                      <li><a href="{% url 'players' %}">Players</a></li>
+            
+                  </ul>    -->
+                    <a class='menu-trigger'>
+                        <span>Menu</span>
+                    </a>
+                    <!-- ***** Menu End ***** -->
+                </nav>
+            </div>
+        </div>
+    </div>
+  </header>
+  <!-- ***** Header Area End ***** -->
+
+  <div class="main-banner">
+    <div class="container">
+      <div class="row align-self-center justify-content-center">
+   
+        <div class="col-3 ">
+
+          <img style="width: 320px;" src="{% static 'assets/images/logo3.png' %}" alt="">
+              
+              </div>
+            </div>
+            <div style="margin-top: 100px;" class="row align-self-center justify-content-center">
+              <div class="col-4">
+            
+            <a href="{% url 'teams' %}"> <button   class="btn btn-primary" role="button">To check which players have played for two or more clubs, click here</button>  </a>
+
+          </div>
+      
+          <div class="col-4">
+            
+            <a href="{% url 'players' %}"> <button  class="btn btn-primary" role="button">To check if two or more players have played for the same team, click here</button> </a>
+
+          </div>       
+               </div>
+     
+        </div>
+
+      
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+  <!-- Scripts -->
+  <!-- Bootstrap core JavaScript -->
+
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+
+
+
+
+  </body>
+</html>

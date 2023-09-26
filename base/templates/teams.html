@@ -1,0 +1,191 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teams</title>
+    <!-- Include Bootstrap 5 CSS and JS -->
+    <link rel="stylesheet" href="{% static 'assets/bootstrap5/bootstrap.min.css' %}">
+    <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+
+
+    <script src="{% static 'assets/bootstrap5/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+
+  <style>
+.header-area{
+position: relative;
+}
+    .main{
+        margin-top: 100px;
+    }
+
+
+#loading_gif{
+ 
+ background:  url(/static/assets/images/loader6.gif) no-repeat center center;
+   height: 100vh;
+   background-size: 12%;
+   width: 50%;
+   position: absolute;
+   z-index: 100;
+   margin: auto;
+   margin-top: 10px;
+   left: 0;
+   right: 0;
+   bottom:  10%;
+   text-align: center;
+ }
+ @media screen and (max-width: 767px) {
+    #loading_gif{
+ 
+ background:  url(static/assets/images/loader6.gif) no-repeat center center;
+   height: 100vh;
+   background-size: 75%;
+   width: 90%;
+   position: absolute;
+   z-index: 100;
+   margin: auto;
+   margin-top: 10px;
+   left: 0;
+   right: 0;
+   text-align: center;
+ }
+}
+
+.form-group{
+  margin-top: 22px;
+}
+
+  </style>  
+</head>
+<body>
+
+
+  <!-- ***** Header Area Start ***** -->
+  <header class="header-area header-sticky">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <nav class="main-nav">
+                    <!-- ***** Logo Start ***** -->
+                    <a href="{% url 'main' %}" class="logo">
+                        <img src="{% static 'assets/images/logo3.png' %}" alt="" style="width: 150px;">
+                    </a>
+                    <!-- ***** Logo End ***** -->
+                    <!-- ***** Menu Start ***** -->
+    
+                    <a class='menu-trigger'>
+                        <span>Menu</span>
+                    </a>
+                    <!-- ***** Menu End ***** -->
+                </nav>
+            </div>
+        </div>
+    </div>
+  </header>
+  <!-- ***** Header Area End ***** -->
+
+<div class="main">
+    <div class="container mt-5">
+        <div id="gif"></div>
+        <h1 style="text-align: center;">Choose your teams</h1>
+        <form id="dynamic-form" method="post" action="{% url 'team_result' %}">
+            {% csrf_token %}
+ 
+            <div class="form-group">
+                <label for="input1">Input your team</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" id="input1" name="input1[]">
+                    <div style="margin-left: 10px;" class="input-group-append">
+                        <button class="btn btn-success add-input" type="button">+</button>
+                        <button class="btn btn-danger remove-input" type="button">-</button>
+                    </div>
+                </div>
+            </div>
+            <button id="submit" style="margin-top: 20px ;" type="submit" class="btn btn-primary">Submit</button>
+
+        </form>
+    </div>
+</div>
+
+<script>
+  function initializeAutocomplete(inputId) {
+      var availableTags = [
+          {% for team in teams_names %}
+              "{{team}}",
+          {% endfor %}
+      ];
+
+      $("#" + inputId).autocomplete({
+          source: function(request, response) {
+              var results = $.ui.autocomplete.filter(availableTags, request.term);
+              response(results.slice(0, 10));
+          }
+      });
+  }
+
+  $(function() {
+      // Initialize autocomplete for the initial input
+      initializeAutocomplete("input1");
+
+      // Handle adding new inputs with + icon
+      $(document).on("click", ".add-input", function() {
+          var inputCount = $(".form-group").length + 1;
+          var inputId = "input" + inputCount;
+
+          // Create the new input group with plus and minus buttons
+          var newInputGroup = $("<div>").addClass("form-group");
+          newInputGroup.html(`
+              <label for="${inputId}">Input your team</label>
+              <div class="input-group">
+                  <input type="text" class="form-control" id="${inputId}" name="input1[]">
+                  <div style="margin-left: 10px;" class="input-group-append">
+                      <button class="btn btn-success add-input" type="button">+</button>
+                      <button class="btn btn-danger remove-input" type="button">-</button>
+                  </div>
+              </div>
+          `);
+
+          // Insert the new input group after the last form-group
+          $(".form-group:last").after(newInputGroup);
+
+          // Initialize autocomplete for the new input
+          initializeAutocomplete(inputId);
+      });
+
+      // Remove input fields with - icon (if needed)
+      $("#dynamic-form").on("click", ".remove-input", function() {
+          $(this).closest(".form-group").remove();
+      });
+  });
+
+
+</script>
+
+
+
+
+<script>
+    $(document).ready(function() {
+  $('#submit').on("click", function (e) {
+   $("#gif").append('<div id="loading_gif"></div>');
+ 
+   var loader = document.getElementById("loading_gif");
+   window.addEventListener("load",function () {
+     loader.style.display = "none";
+   })
+  });
+});
+ </script>
+
+
+
+</body>
+</html>
