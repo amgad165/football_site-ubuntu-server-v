@@ -64,19 +64,19 @@ def team_result(request):
 
                 return redirect(error_page)
         else:
-            try:
-                common_players , clubs = get_common_players_scrape(clubs_list,teams_csv_path)
-                # Convert 'born' column to datetime
-        
-                common_players['Born'] = common_players['Born'].apply(parse_date)
+        # try:
+            common_players , clubs = get_common_players_scrape(clubs_list,teams_csv_path)
+            # Convert 'born' column to datetime
+    
+            common_players['Born'] = common_players['Born'].apply(parse_date)
 
-                # Sort the DataFrame by the 'born' column in descending order
-                common_players = common_players.sort_values(by='Born', ascending=False)
-                
-            except Exception as e:
-                print(f"An error occurred: {str(e)}")
+            # Sort the DataFrame by the 'born' column in descending order
+            common_players = common_players.sort_values(by='Born', ascending=False)
+            
+        # except Exception as e:
+        #     print(f"An error occurred: {str(e)}")
 
-                return redirect(error_page)
+        #     return redirect(error_page)
 
         clubs = ", ".join(clubs)
         return render(request,"team_result.html",{'common_players':common_players,'clubs':clubs})
