@@ -258,22 +258,18 @@ def parse_date(date_str):
 
 def scrape_player_info(search_query):
     # Initialize the Firefox WebDriver
-    geckodriver_path = os.path.join(settings.STATICFILES_DIRS[0], 'geckodriver')  # Replace with the actual path to geckodriver
-    
-    # Create a Firefox service with the executable path
-    firefox_service = FirefoxService(geckodriver_path)
+
     
     # Create Firefox options
     firefox_options = FirefoxOptions()
     firefox_options.headless = True
-    firefox_options.binary_location = '/usr/bin/firefox'
     firefox_options.add_argument(argument="--no-sandbox")
     firefox_options.add_argument(argument="--headless")
     firefox_options.add_argument(argument="--disable-gpu")
     firefox_options.add_argument(argument="--window-size=1920,1080")
 
     # Initialize the Firefox WebDriver with the service
-    driver = webdriver.Firefox(service=firefox_service, options=firefox_options)
+    driver = webdriver.Firefox(options=firefox_options)
 
     # Open the Wikipedia homepage
     driver.get("https://en.wikipedia.org/wiki/Special:Search?")
