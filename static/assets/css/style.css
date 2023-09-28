@@ -665,6 +665,18 @@ Banner Style
   padding: 300px 0px;
 }
 
+
+@media screen and (max-width: 767px) {
+  .main-banner {
+    border-radius: 0px 0px 150px 150px;
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 200px 0px;
+  }
+}
+
+
 .main-banner .caption h6 {
   font-size: 20px;
   text-transform: uppercase;
@@ -1606,7 +1618,7 @@ body {
 
 @media (max-width: 992px) {
   .header-area .main-nav .logo img {
-    max-width: 110px;
+    max-width: 130px;
   }
   .header-area .main-nav .nav li a {
     padding-left: 10px;

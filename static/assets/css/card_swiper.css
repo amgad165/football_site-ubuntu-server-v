@@ -103,7 +103,7 @@ margin-top: 50px;
 }
 @media screen and (max-width: 768px) {
     .blog-slider__content {
-        margin-top: -80px;
+        
         text-align: center;
         padding: 0 30px;
    }
