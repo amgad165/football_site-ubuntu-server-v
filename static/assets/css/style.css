@@ -662,7 +662,7 @@ Banner Style
   background-position: center bottom;
   background-repeat: no-repeat;
   background-size: cover;
-  padding: 300px 0px;
+  padding: 150px 0px;
 }
 
 
@@ -676,6 +676,13 @@ Banner Style
   }
 }
 
+
+
+@media screen and (max-width: 767px) {
+  .main-banner img{
+width: inherit !important;
+  }
+}
 
 .main-banner .caption h6 {
   font-size: 20px;
