@@ -161,7 +161,7 @@
                       $("#loading_gif").remove()
                   }
               },
-              error: function () {
+              error: function (response) {
                   $('#error-alert').text(response.error_message).show();
                   $("#loading_gif").remove()
               }

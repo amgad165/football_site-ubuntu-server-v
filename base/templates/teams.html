@@ -119,7 +119,7 @@ position: relative;
   function initializeAutocomplete(inputId) {
       var availableTags = [
           {% for team in teams_names %}
-              "{{team}}",
+              "{{team|safe}}",
           {% endfor %}
       ];
 
