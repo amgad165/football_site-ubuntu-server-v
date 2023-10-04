@@ -11,7 +11,7 @@ from datetime import datetime
 from .models import team_data_modes , PlayerInfo
 import os
 from django.conf import settings
-import time
+
 ################################################# teams functions########################################
 
 def get_team_link(team_name):
@@ -252,8 +252,20 @@ def parse_date(date_str):
 
 ################################################# players functions########################################
 
-def scrape_player_info(search_query,driver):
+def scrape_player_info(search_query):
+    # Initialize the Firefox WebDriver
 
+    
+    # Create Firefox options
+    firefox_options = FirefoxOptions()
+    firefox_options.headless = True
+    firefox_options.add_argument(argument="--no-sandbox")
+    firefox_options.add_argument(argument="--headless")
+    firefox_options.add_argument(argument="--disable-gpu")
+    firefox_options.add_argument(argument="--window-size=1920,1080")
+
+    # Initialize the Firefox WebDriver with the service
+    driver = webdriver.Firefox(options=firefox_options)
 
     # Open the Wikipedia homepage
     driver.get("https://en.wikipedia.org/wiki/Special:Search?")
@@ -264,7 +276,7 @@ def scrape_player_info(search_query,driver):
     search_box.send_keys(Keys.RETURN)
 
     # Wait for the search results to load (you may need to adjust the sleep duration)
-    
+    import time
     time.sleep(1)
 
 
@@ -317,37 +329,24 @@ def scrape_player_info(search_query,driver):
         # Extract "Youth career" and "Senior career" section data combined as "Career"
         career_data = extract_section_data("Youth career") + extract_section_data("Senior career")
         
-        
+        driver.quit()
         return player_name, career_data
 
     return None, None
 
 def compare_players(player_search):
-    # Initialize the Firefox WebDriver
-
-    
-    # Create Firefox options
-    firefox_options = FirefoxOptions()
-    firefox_options.headless = True
-    firefox_options.add_argument(argument="--no-sandbox")
-    firefox_options.add_argument(argument="--headless")
-    firefox_options.add_argument(argument="--disable-gpu")
-    firefox_options.add_argument(argument="--window-size=1920,1080")
-
-    # Initialize the Firefox WebDriver with the service
-    driver = webdriver.Firefox(options=firefox_options)
 
     player_info_dict = {}
     
     players=[]
     for player in player_search:
-        player_name, career_data = scrape_player_info(player,driver)
+        player_name, career_data = scrape_player_info(player)
         if player_name:
             players.append(player_name)
             player_info_dict[player_name] = {"Career": career_data}
 
 
-    driver.quit()
+    
     if len(players) < 2:
         print("Please provide at least two players for comparison.")
     else:
