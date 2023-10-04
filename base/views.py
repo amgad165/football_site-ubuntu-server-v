@@ -109,35 +109,7 @@ def players_result(request):
     return render(request,"player_results.html")
 
 
-def csv_upload2(request):
-    if request.method == 'POST' and request.FILES['csv_file']:
-        csv_file = request.FILES['csv_file']
 
-        # Read and decode the CSV file
-        csv_data = csv_file.read().decode('utf-8')
-        dataset = Dataset().load(csv_data)
-
-        # Check if the dataset is empty
-        if len(dataset) == 0:
-            return JsonResponse({'error_message': 'CSV file is empty'})
-
-        # Begin a database transaction
-        with transaction.atomic():
-            # Clear the existing records in the PlayerInfo table
-            PlayerInfo.objects.all().delete()
-
-            # Use the PlayerInfoResource to import the dataset into the database
-            player_info_resource = PlayerInfoResource()
-            result = player_info_resource.import_data(dataset, dry_run=False)
-
-            if result.has_errors():
-                # Handle import errors if any
-                errors = result.row_errors()
-                return JsonResponse({'error_message': f'CSV data import failed. Errors: {errors}'})
-            
-        return JsonResponse({'message': 'CSV data successfully inserted.'})
-    
-    return render(request, 'csv_upload.html')  # Render an HTML page with an upload form
 
 
 def csv_upload(request):

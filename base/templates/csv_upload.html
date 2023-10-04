@@ -162,7 +162,7 @@
                   }
               },
               error: function () {
-                  $('#error-alert').text('An error occurred. Please try again later.').show();
+                  $('#error-alert').text(response.error_message).show();
                   $("#loading_gif").remove()
               }
           });
