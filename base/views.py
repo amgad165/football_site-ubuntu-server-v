@@ -20,18 +20,12 @@ def main(request):
     return render(request,"index.html")
 
 def teams(request):
-    team_mode = team_data_modes.objects.first()
-    current_mode = team_mode.mode
-    if current_mode == 'db':
 
-        unique_clubs = PlayerInfo.objects.values_list('Club', flat=True).distinct()
-        # Convert the QuerySet to a list
-        teams_names = list(unique_clubs)
+    unique_clubs = PlayerInfo.objects.values_list('Club', flat=True).distinct()
+    # Convert the QuerySet to a list
+    teams_names = list(unique_clubs)
 
-    else:
-        teams_csv_path = os.path.join(settings.STATICFILES_DIRS[0], 'assets/data/teams_with_links.csv')
-        teams = pd.read_csv(teams_csv_path)
-        teams_names = list(teams.name.values)
+
         
     return render(request,"teams.html",{'teams_names':teams_names})
 
