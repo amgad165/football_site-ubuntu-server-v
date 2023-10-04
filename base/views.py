@@ -86,10 +86,14 @@ def team_result(request):
 
 
 def players(request):
-    players_csv_path = os.path.join(settings.STATICFILES_DIRS[0], 'assets/data/players_names.csv')
+    # players_csv_path = os.path.join(settings.STATICFILES_DIRS[0], 'assets/data/players_names.csv')
 
-    players = pd.read_csv(players_csv_path)
-    players_names = list(players.name.values)
+    # players = pd.read_csv(players_csv_path)
+    # players_names = list(players.name.values)
+
+    unique_players = PlayerInfo.objects.values_list('Player', flat=True).distinct()
+    # Convert the QuerySet to a list
+    players_names = list(unique_players)
     return render(request,"players.html",{'players_names':players_names})
 
 
