@@ -140,13 +140,15 @@
 
 <script>
   $(document).ready(function () {
+    
+
       $('#csv-upload-form').on('submit', function (e) {
           e.preventDefault();
           var formData = new FormData(this);
-          
+          var csrftoken = $("input[name='csrfmiddlewaretoken']").val();
           $.ajax({
               type: 'POST',
-
+              headers: { "X-CSRFToken": csrftoken },
               data: formData,
               processData: false,
               contentType: false,
