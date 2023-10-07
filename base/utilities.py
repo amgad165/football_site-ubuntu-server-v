@@ -341,7 +341,7 @@ def compare_players(player_search):
     
     players=[]
     for player in player_search:
-        player_name, career_data = scrape_player_info(player)
+        player_name, career_data = scrape_player_info(player,driver)
         if player_name:
             players.append(player_name)
             player_info_dict[player_name] = {"Career": career_data}
